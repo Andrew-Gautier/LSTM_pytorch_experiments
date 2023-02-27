@@ -1,4 +1,4 @@
-# semAI - Semantic AI
+# Dataset
 
 An AI exploration into semantic modeling.
 
