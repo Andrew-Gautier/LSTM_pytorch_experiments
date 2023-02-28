@@ -1,0 +1,5 @@
+
+
+COMPONENTS:
+- Nodes are sets
+- 
