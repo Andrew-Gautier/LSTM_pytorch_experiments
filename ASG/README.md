@@ -18,7 +18,3 @@ Nodes are sets/objects, connecitons are messaging.
 
 Parens compose an object
 
-((input)->(Package)->(IO)<-) <-> () 
-
-(server) <- (networking) <- (package) <- (input)
-
