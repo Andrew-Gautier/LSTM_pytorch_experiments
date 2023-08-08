@@ -4,7 +4,7 @@ import torch.nn.functional as F
 import torch.optim as Adam
 import pytorch_lightning as L
 from torch.utils.data import TensorDataset, DataLoader
-
+import torch.optim as optim
 
 class LSTMbyHand(L.LightningModule):
 #Create and initialize Weight and Biases   
@@ -63,7 +63,7 @@ class LSTMbyHand(L.LightningModule):
     
 #Configure Adam optimizer
     def configure_optimizers(self):   
-        return Adam(self.parameters())
+        return optim.Adam(self.parameters())
     
 #Calculate loss and log training progress
     def training_step(self, batch, batch_idx):   
