@@ -60,7 +60,7 @@ class LSTMbyHand(L.LightningModule):
         long_memory, short_memory = self.lstm_unit(day4, long_memory, short_memory)
 
         return short_memory
-    
+     
 #Configure Adam optimizer
     def configure_optimizers(self):   
         return optim.Adam(self.parameters())
@@ -93,11 +93,6 @@ labels = torch.tensor([0., 1.])
 dataset = TensorDataset(inputs, labels)
 dataloader = DataLoader(dataset)
 
-trainer = L.Trainer(max_epochs=2000)
-trainer.fit(model, train_dataloaders=dataloader)
-print("\n Now let's compare the observed and predicted values...")
-print("Company A: Observed =0, Predicted =", model(torch.tensor([0.,0.5,0.25,1.])).detach())
-print("Company B: Observed =1, Predicted =", model(torch.tensor([0.,0.5,0.25,1.])).detach())
 
 
 # print("\n Now let's compare the observed and predicted values...")
@@ -105,3 +100,15 @@ print("Company B: Observed =1, Predicted =", model(torch.tensor([0.,0.5,0.25,1.]
 # model(torch.tensor([0.,0.5,0.25,1.])).detach()
 # print("Company B: Observed =1, Predicted =", model(torch.tensor([0.,0.5,0.25,1.])).detach())
 # model(torch.tensor([0.,0.5,0.25,1.])).detach()
+trainer = L.Trainer(max_epochs=6000)
+path_to_best_checkpoint = trainer.checkpoint_callback.best_model_path ## By default, "best" = "most recent"
+
+
+trainer.fit(model, train_dataloaders=dataloader, ckpt_path=path_to_best_checkpoint)
+
+
+print("The new trainer will start where the last left off, and the check point data is here: " + 
+      path_to_best_checkpoint + "\n")
+print("\n Now let's compare the observed and predicted values...")
+print("Company A: Observed =0, Predicted =", model(torch.tensor([0.,0.5,0.25,1.])).detach())
+print("Company B: Observed =1, Predicted =", model(torch.tensor([0.,0.5,0.25,1.])).detach())
